@@ -1,7 +1,7 @@
 let User = require("../models/User");
 let bcrypt = require("bcrypt");
 let jwt = require("jsonwebtoken");
-
+require("dotenv").config();
 let user_function = {
     registerUser: async function (req, res) {
         try {
@@ -59,7 +59,7 @@ let user_function = {
                     name: user.name,
                     email: user.email
                 },
-                JWT_SECRET,
+                process.env.JWT_SECRET,
                 { expiresIn: "2h" }
             );
 

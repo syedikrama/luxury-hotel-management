@@ -1,7 +1,21 @@
 let User = require("../models/User");
 let bcrypt = require("bcrypt");
 let jwt = require("jsonwebtoken");
+let nodemailer = require("nodemailer");
+let {MAIL} = require("../config/env");
+let {PASS_KEY} = require("../config/env");
 require("dotenv").config();
+
+let email_info = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user:MAIL,
+        pass:PASS_KEY
+    }
+})
+
+
+
 let user_function = {
     registerUser: async function (req, res) {
         try {
@@ -22,12 +36,31 @@ let user_function = {
                 // user create ho kr save ho jaye ga
                 let newUser = new User({ name, email, password : hashedPassword, role })
                 let saveUser = await newUser.save();
+
+
+                // email sent to user
+                let email_data = {
+                    to : email,
+                    from : MAIL,
+                    subject : "Account Registered Successfully",
+                    html : `<h3>Hello ${name}</h3> <p>your account has been successfully registered, now you can login on our website <a target="_blank" href="http://localhost:3001/login">Click here to continue</a> </p>`
+                }
+                email_info.sendMail(email_data , function(e , i){
+                    if (e) {
+                        console.log(e.message)
+                    }else{
+                        console.log("Email sent successfully" + i)
+                    }
+                })
+                
+
+
                 res.status(200).json({ message: "User registered successfully" })
             }
 
 
         } catch (error) {
-            res.status(501).json({ message: "Server error during registration." });
+            res.status(501).json({ message: "Server error during registration."+ error.message });
         }
     },
     loginUser: async function (req, res) {

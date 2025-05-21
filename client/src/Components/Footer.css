@@ -1,0 +1,152 @@
+.footer {
+  background-color: #111827; /* gray-900 */
+  color: white;
+  padding: 2rem;
+}
+
+.footer-container {
+  max-width: 72rem; /* 6xl */
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .footer-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.newsletter-section {
+  grid-column: span 2;
+}
+
+.newsletter-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .newsletter-form {
+    flex-direction: row;
+  }
+}
+
+.newsletter-input {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  color: #1f2937; /* gray-800 */
+  flex-grow: 1;
+}
+
+.newsletter-button {
+  background-color: #2563eb; /* blue-600 */
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.newsletter-button:hover {
+  background-color: #1d4ed8; /* blue-700 */
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.link-item {
+  color: white;
+  text-decoration: none;
+}
+
+.link-item:hover {
+  color: #60a5fa; /* blue-400 */
+}
+
+.description-section {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #374151; /* gray-700 */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .description-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.hotel-description {
+  color: #9ca3af; /* gray-400 */
+}
+
+.contact-info {
+  color: #9ca3af; /* gray-400 */
+}
+
+.footer-bottom {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #374151; /* gray-700 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+  }
+}
+
+.copyright {
+  color: #9ca3af; /* gray-400 */
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .copyright {
+    margin-bottom: 0;
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  color: white;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  color: #60a5fa; /* blue-400 */
+}

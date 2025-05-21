@@ -1,0 +1,85 @@
+.rooms-wrapper-home {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px;
+}
+
+.room-card-home {
+  position: relative;
+  width: 340px;
+  height: 600px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.room-card-home:hover {
+  transform: translateY(-8px);
+}
+
+.room-image-home {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+  transition: filter 0.3s ease;
+}
+
+.room-card-home:hover .room-image-home {
+  filter: brightness(0.5);
+}
+
+.room-info-home {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  color: white;
+  text-align: start;
+  margin-left: 10px;
+  padding: 10px;
+  z-index: 2;
+}
+
+.room-info-home h3 {
+  font-size: 30px;
+}
+
+.room-info-home p {
+  margin-top: 5px;
+  font-size: 20px;
+  color: #dfa974;
+  font-weight: bold;
+}
+
+.room-hover-overlay {
+  position: absolute;
+  text-align: start;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin-top: 300px;
+  background: rgba(0, 0, 0, 0); /* Updated from 0 to 0.7 for visibility */
+  color: white;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  z-index: 3;
+  overflow-y: auto;
+}
+
+.room-hover-overlay h4 {
+  color: #ffcc00;
+}
+
+.room-card-home:hover .room-hover-overlay {
+  opacity: 1;
+}
+
+.room-card-home:hover .room-info-home {
+  opacity: 0;
+}

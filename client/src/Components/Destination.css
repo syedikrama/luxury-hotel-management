@@ -1,0 +1,19 @@
+.destination-card {
+  transition: transform 0.4s ease;
+}
+
+.destination-card.up {
+  transform: translateY(-20px);
+}
+
+.destination-card.down {
+  transform: translateY(20px);
+}
+
+
+@media (max-width: 576px) {
+  .destination-card.up,
+  .destination-card.down {
+    transform: translateY(0);
+  }
+}

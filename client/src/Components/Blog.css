@@ -1,0 +1,129 @@
+.blog-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.blog-container h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.blog-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  height: 450px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.blog-item:hover {
+  transform: translateY(-8px);
+}
+
+.blog-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-item:hover .blog-image img {
+  transform: scale(1.08);
+}
+
+.blog-category {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #dfa974;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 2;
+  border-radius: 3px;
+}
+
+.blog-title,
+.blog-date {
+  position: absolute;
+  left: 20px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
+
+.blog-title {
+  bottom: 50px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.blog-date {
+  bottom: 20px;
+  font-size: 14px;
+}
+
+.blog-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
+  z-index: 1;
+}
+
+.load-more-btn {
+  display: block;
+  margin: 40px auto 0;
+  padding: 12px 30px;
+  background: transparent;
+  border: 2px solid #dfa974;
+  color: #dfa974;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+}
+
+.load-more-btn:hover {
+  background: #dfa974;
+  color: #fff;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+  .blog-title {
+    font-size: 16px;
+  }
+
+  .blog-date {
+    font-size: 12px;
+  }
+
+  .blog-category {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  .blog-container h1 {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,68 @@
+/* HERO SECTION */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  background: url('https://cache.marriott.com/is/image/marriotts7prod/rz-rbarz-the-lobby-lounge--21710:Classic-Hor?wid=1300&fit=constrain') no-repeat center center/cover;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  width: 100%;
+  color: white;
+}
+
+/* BUTTON STYLE */
+.book-btn {
+  padding: 10px 22px;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.book-btn:hover {
+  background-color: white;
+  color: black;
+}
+
+/* HERO CONTENT */
+.hero-content {
+  font-family: "Playfair Display", serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
+
+/* NAVBAR STYLES */
+.navbar {
+  position: relative;
+  z-index: 1000; /* Ensure it's above overlay */
+}
+
+.navbar .nav-item {
+  position: relative;
+}
+
+.navbar .nav-link {
+  color: white;
+  font-size: 18px;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+/* HOVER & FOCUS EFFECT FOR NAV LINK */
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: #9f8764 !important;
+}
+
+
+

@@ -1,0 +1,73 @@
+.services-container {
+  padding: 80px 20px;
+
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.services-header h2 {
+  font-size: 42px;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.services-header p {
+  font-size: 18px;
+  color: #777;
+  margin-bottom: 50px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns */
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto 80px auto;
+  padding: 0 20px;
+}
+
+.service-card {
+  background-color: #ffffff;
+  padding: 30px 25px;
+
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.service-icon {
+  font-size: 38px;
+  color: #fff;
+  background: linear-gradient(135deg, #664722, #755023);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+  background: linear-gradient(135deg, #755023, #a87332);
+}
+
+.service-card h4 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #222;
+  font-weight: 600;
+}
+
+.service-card p {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+  padding: 0 5px;
+}

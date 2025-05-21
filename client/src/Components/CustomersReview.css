@@ -1,0 +1,21 @@
+.review-card-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.reviewer-box {
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+
+.reviewer-details {
+  text-align: left;
+}

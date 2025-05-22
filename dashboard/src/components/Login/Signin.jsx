@@ -10,7 +10,7 @@ export default function Signin() {
 
     const Login = async () => {
         try {
-            const res = await axios.post('http://localhost:3001/HMS/login', {
+            const res = await axios.post('http://localhost:3001/hms/login', {
                 email,
                 password,
             });

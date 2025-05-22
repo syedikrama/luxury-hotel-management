@@ -9,7 +9,7 @@ const Sidebar = () => {
   const [activeLinkIdx] = useState(1);
   const [sidebarClass, setSidebarClass] = useState("");
   const { isSidebarOpen } = useContext(SidebarContext);
-
+  const tokenName = localStorage.getItem('name');
   useEffect(() => {
     if(isSidebarOpen){
       setSidebarClass('sidebar-change');
@@ -24,7 +24,7 @@ const Sidebar = () => {
           <div className="info-img img-fit-cover">
               <img src={ personsImgs.person_two } alt="profile image" />
           </div>
-          <span className="info-name">alice-doe</span>
+          <span className="info-name">{tokenName}</span>
       </div>
 
       <nav className="navigation">

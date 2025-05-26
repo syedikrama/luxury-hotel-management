@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+let mongoose = require("mongoose");
 
-const feedbackSchema = new mongoose.Schema({
+let feedbackSchema = new mongoose.Schema({
     guest: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Guest",

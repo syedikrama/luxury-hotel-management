@@ -3,12 +3,13 @@ let {port} = require("./src/config/env");
 let db = require("./src/config/db");
 let authRoutes = require("./src/routes/authRoutes")
 let dashboardRoutes = require("./src/routes/dashboardRoutes")
-const roomRoutes = require("./src/routes/roomRoutes");
-const reservationRoutes = require("./src/routes/reservationRoutes");
-const reportRoutes = require("./src/routes/reportRoutes");
-const invoiceRoutes = require("./src/routes/invoiceRoutes");
-const feedbackRoutes = require("./src/routes/feedbackRoutes");
-const bookingRoutes = require("./src/routes/bookingRoutes");
+let roomRoutes = require("./src/routes/roomRoutes");
+let reservationRoutes = require("./src/routes/reservationRoutes");
+let reportRoutes = require("./src/routes/reportRoutes");
+let invoiceRoutes = require("./src/routes/invoiceRoutes");
+let feedbackRoutes = require("./src/routes/feebackRoutes");
+let bookingRoutes = require("./src/routes/bookingRoutes");
+let guestRoutes = require("./src/routes/guestRoutes")
 
 let HMS_app = express();
 let cors = require("cors");
@@ -23,6 +24,8 @@ HMS_app.use("/hms/reports", reportRoutes);
 HMS_app.use("/hms/invoices", invoiceRoutes);
 HMS_app.use("/hms/feedbacks", feedbackRoutes);
 HMS_app.use("/hms/bookings", bookingRoutes);
+HMS_app.use("/hms/guest", guestRoutes);
+
 
 
 db().then(() => {

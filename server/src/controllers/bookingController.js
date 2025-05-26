@@ -1,3 +1,103 @@
+// let Booking = require("../models/Booking");
+
+// let bookingController = {
+//   createBooking: async (req, res) => {
+//     try {
+//       let {
+//         guest,
+//         room,
+//         checkInDate,
+//         checkOutDate,
+//         totalAmount,
+//         additionalServices,
+//         createdBy,
+//       } = req.body;
+
+//       if (!guest || !room || !checkInDate || !checkOutDate || !totalAmount) {
+//         return res.status(400).json({ message: "Required fields missing." });
+//       }
+
+//       let newBooking = new Booking({
+//         guest,
+//         room,
+//         checkInDate,
+//         checkOutDate,
+//         totalAmount,
+//         additionalServices,
+//         createdBy,
+//       });
+
+//       let savedBooking = await newBooking.save();
+//       res.status(201).json(savedBooking);
+//     } catch (error) {
+//       res.status(500).json({ message: "Booking creation failed.", error: error.message });
+//     }
+//   },
+
+//   getAllBookings: async (req, res) => {
+//     try {
+//       let bookings = await Booking.find()
+//         .populate("guest", "name email")
+//         .populate("room")
+//         .populate("createdBy", "name email");
+//       res.status(200).json(bookings);
+//     } catch (error) {
+//       res.status(500).json({ message: "Failed to fetch bookings.", error: error.message });
+//     }
+//   },
+
+//   getBookingById: async (req, res) => {
+//     try {
+//       let booking = await Booking.findById(req.params.id)
+//         .populate("guest", "name email")
+//         .populate("room")
+//         .populate("createdBy", "name email");
+//       if (!booking) return res.status(404).json({ message: "Booking not found." });
+//       res.status(200).json(booking);
+//     } catch (error) {
+//       res.status(500).json({ message: "Error fetching booking.", error: error.message });
+//     }
+//   },
+
+//   updateBookingStatus: async (req, res) => {
+//     try {
+//       let { status, paymentStatus, invoiceGenerated } = req.body;
+
+//       let updatedBooking = await Booking.findByIdAndUpdate(
+//         req.params.id,
+//         { status, paymentStatus, invoiceGenerated },
+//         { new: true }
+//       );
+
+//       if (!updatedBooking) return res.status(404).json({ message: "Booking not found." });
+
+//       res.status(200).json(updatedBooking);
+//     } catch (error) {
+//       res.status(500).json({ message: "Failed to update booking.", error: error.message });
+//     }
+//   },
+
+//   deleteBooking: async (req, res) => {
+//     try {
+//       let deletedBooking = await Booking.findByIdAndDelete(req.params.id);
+//       if (!deletedBooking) return res.status(404).json({ message: "Booking not found." });
+//       res.status(200).json({ message: "Booking deleted successfully." });
+//     } catch (error) {
+//       res.status(500).json({ message: "Failed to delete booking.", error: error.message });
+//     }
+//   },
+// };
+
+// module.exports = bookingController;
+
+
+
+
+
+
+
+
+
 const Booking = require("../models/Booking");
 
 const bookingController = {
@@ -9,12 +109,12 @@ const bookingController = {
         checkInDate,
         checkOutDate,
         totalAmount,
-        additionalServices,
+        additionalServices = [],
         createdBy,
       } = req.body;
 
       if (!guest || !room || !checkInDate || !checkOutDate || !totalAmount) {
-        return res.status(400).json({ message: "Required fields missing." });
+        return res.status(400).json({ message: "Please provide all required fields." });
       }
 
       const newBooking = new Booking({
@@ -28,9 +128,15 @@ const bookingController = {
       });
 
       const savedBooking = await newBooking.save();
-      res.status(201).json(savedBooking);
+      res.status(201).json({
+        message: "Booking created successfully.",
+        data: savedBooking
+      });
     } catch (error) {
-      res.status(500).json({ message: "Booking creation failed.", error: error.message });
+      res.status(500).json({
+        message: "Failed to create booking.",
+        error: error.message
+      });
     }
   },
 
@@ -38,11 +144,15 @@ const bookingController = {
     try {
       const bookings = await Booking.find()
         .populate("guest", "name email")
-        .populate("room")
+        .populate("room", "roomNumber type status")
         .populate("createdBy", "name email");
+
       res.status(200).json(bookings);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch bookings.", error: error.message });
+      res.status(500).json({
+        message: "Failed to fetch bookings.",
+        error: error.message
+      });
     }
   },
 
@@ -50,12 +160,19 @@ const bookingController = {
     try {
       const booking = await Booking.findById(req.params.id)
         .populate("guest", "name email")
-        .populate("room")
+        .populate("room", "roomNumber type status")
         .populate("createdBy", "name email");
-      if (!booking) return res.status(404).json({ message: "Booking not found." });
+
+      if (!booking) {
+        return res.status(404).json({ message: "Booking not found." });
+      }
+
       res.status(200).json(booking);
     } catch (error) {
-      res.status(500).json({ message: "Error fetching booking.", error: error.message });
+      res.status(500).json({
+        message: "Error fetching booking.",
+        error: error.message
+      });
     }
   },
 
@@ -69,23 +186,39 @@ const bookingController = {
         { new: true }
       );
 
-      if (!updatedBooking) return res.status(404).json({ message: "Booking not found." });
+      if (!updatedBooking) {
+        return res.status(404).json({ message: "Booking not found." });
+      }
 
-      res.status(200).json(updatedBooking);
+      res.status(200).json({
+        message: "Booking updated successfully.",
+        data: updatedBooking
+      });
     } catch (error) {
-      res.status(500).json({ message: "Failed to update booking.", error: error.message });
+      res.status(500).json({
+        message: "Failed to update booking.",
+        error: error.message
+      });
     }
   },
 
   deleteBooking: async (req, res) => {
     try {
       const deletedBooking = await Booking.findByIdAndDelete(req.params.id);
-      if (!deletedBooking) return res.status(404).json({ message: "Booking not found." });
+
+      if (!deletedBooking) {
+        return res.status(404).json({ message: "Booking not found." });
+      }
+
       res.status(200).json({ message: "Booking deleted successfully." });
     } catch (error) {
-      res.status(500).json({ message: "Failed to delete booking.", error: error.message });
+      res.status(500).json({
+        message: "Failed to delete booking.",
+        error: error.message
+      });
     }
   },
 };
 
 module.exports = bookingController;
+

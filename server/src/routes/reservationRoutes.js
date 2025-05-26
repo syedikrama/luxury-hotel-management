@@ -1,6 +1,6 @@
-const express = require("express");
-const router = express.Router();
-const reservationController = require("../controllers/reservationsController");
+let express = require("express");
+let router = express.Router();
+let reservationController = require("../controllers/reservationsController");
 
 router.post("/", reservationController.createReservation);
 router.get("/", reservationController.getReservations);

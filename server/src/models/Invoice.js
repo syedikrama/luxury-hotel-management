@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+let mongoose = require("mongoose");
 
-const invoiceSchema = new mongoose.Schema({
+let invoiceSchema = new mongoose.Schema({
     booking: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Booking",

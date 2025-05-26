@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+let mongoose = require("mongoose");
 
-const reservationSchema = new mongoose.Schema({
+let reservationSchema = new mongoose.Schema({
     guest: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User", // guest account (optional, can be null for walk-ins)

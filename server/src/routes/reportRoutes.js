@@ -1,6 +1,6 @@
-const express = require("express");
-const router = express.Router();
-const reportController = require("../controllers/reportController");
+let express = require("express");
+let router = express.Router();
+let reportController = require("../controllers/reportController");
 
 router.post("/", reportController.createReport);
 router.get("/", reportController.getReports);

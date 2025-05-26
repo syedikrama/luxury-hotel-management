@@ -1,22 +1,22 @@
-const Feedback = require("../models/Feedback");
+let Feedback = require("../models/Feedback");
 
-const feedbackController = {
+let feedbackController = {
   createFeedback: async (req, res) => {
     try {
-      const { guest, booking, rating, comment } = req.body;
+      let { guest, booking, rating, comment } = req.body;
 
       if (!guest || !rating) {
         return res.status(400).json({ message: "Guest and rating are required." });
       }
 
-      const newFeedback = new Feedback({
+      let newFeedback = new Feedback({
         guest,
         booking,
         rating,
         comment,
       });
 
-      const savedFeedback = await newFeedback.save();
+      let savedFeedback = await newFeedback.save();
       res.status(201).json(savedFeedback);
     } catch (error) {
       res.status(500).json({ message: "Error submitting feedback.", error: error.message });
@@ -25,7 +25,7 @@ const feedbackController = {
 
   getAllFeedbacks: async (req, res) => {
     try {
-      const feedbacks = await Feedback.find()
+      let feedbacks = await Feedback.find()
         .populate("guest", "name email")
         .populate("booking")
         .populate("respondedBy", "name email");
@@ -37,7 +37,7 @@ const feedbackController = {
 
   getFeedbackById: async (req, res) => {
     try {
-      const feedback = await Feedback.findById(req.params.id)
+      let feedback = await Feedback.findById(req.params.id)
         .populate("guest", "name email")
         .populate("booking")
         .populate("respondedBy", "name email");
@@ -50,13 +50,13 @@ const feedbackController = {
 
   respondToFeedback: async (req, res) => {
     try {
-      const { respondedBy, response } = req.body;
+      let { respondedBy, response } = req.body;
 
       if (!respondedBy || !response) {
         return res.status(400).json({ message: "Responder and response are required." });
       }
 
-      const updatedFeedback = await Feedback.findByIdAndUpdate(
+      let updatedFeedback = await Feedback.findByIdAndUpdate(
         req.params.id,
         {
           respondedBy,
@@ -76,7 +76,7 @@ const feedbackController = {
 
   deleteFeedback: async (req, res) => {
     try {
-      const deletedFeedback = await Feedback.findByIdAndDelete(req.params.id);
+      let deletedFeedback = await Feedback.findByIdAndDelete(req.params.id);
       if (!deletedFeedback) return res.status(404).json({ message: "Feedback not found." });
       res.status(200).json({ message: "Feedback deleted successfully." });
     } catch (error) {

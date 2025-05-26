@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+let mongoose = require("mongoose");
 
-const reportSchema = new mongoose.Schema({
+let reportSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,

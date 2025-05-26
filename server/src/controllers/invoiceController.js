@@ -1,9 +1,9 @@
-const Invoice = require("../models/Invoice");
+let Invoice = require("../models/Invoice");
 
-const invoiceController = {
+let invoiceController = {
   createInvoice: async (req, res) => {
     try {
-      const {
+      let {
         booking,
         guest,
         roomCharges,
@@ -19,7 +19,7 @@ const invoiceController = {
         return res.status(400).json({ message: "Required fields missing." });
       }
 
-      const newInvoice = new Invoice({
+      let newInvoice = new Invoice({
         booking,
         guest,
         roomCharges,
@@ -31,7 +31,7 @@ const invoiceController = {
         issuedBy,
       });
 
-      const savedInvoice = await newInvoice.save();
+      let savedInvoice = await newInvoice.save();
       res.status(201).json(savedInvoice);
     } catch (error) {
       res.status(500).json({ message: "Error creating invoice.", error: error.message });
@@ -40,7 +40,7 @@ const invoiceController = {
 
   getInvoices: async (req, res) => {
     try {
-      const invoices = await Invoice.find()
+      let invoices = await Invoice.find()
         .populate("booking")
         .populate("guest")
         .populate("issuedBy", "name email");
@@ -52,7 +52,7 @@ const invoiceController = {
 
   getInvoiceById: async (req, res) => {
     try {
-      const invoice = await Invoice.findById(req.params.id)
+      let invoice = await Invoice.findById(req.params.id)
         .populate("booking")
         .populate("guest")
         .populate("issuedBy", "name email");
@@ -65,7 +65,7 @@ const invoiceController = {
 
   updateInvoice: async (req, res) => {
     try {
-      const updatedInvoice = await Invoice.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      let updatedInvoice = await Invoice.findByIdAndUpdate(req.params.id, req.body, { new: true });
       if (!updatedInvoice) return res.status(404).json({ message: "Invoice not found." });
       res.status(200).json(updatedInvoice);
     } catch (error) {
@@ -75,7 +75,7 @@ const invoiceController = {
 
   deleteInvoice: async (req, res) => {
     try {
-      const deletedInvoice = await Invoice.findByIdAndDelete(req.params.id);
+      let deletedInvoice = await Invoice.findByIdAndDelete(req.params.id);
       if (!deletedInvoice) return res.status(404).json({ message: "Invoice not found." });
       res.status(200).json({ message: "Invoice deleted successfully." });
     } catch (error) {

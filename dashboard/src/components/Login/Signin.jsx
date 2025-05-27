@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +7,20 @@ export default function Signin() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('')
     const navigate = useNavigate();
+
+    const HomeRedirect = () => {
+        const navigate = useNavigate();
+        console.log("object")
+        useEffect(() => {
+            const tokenIdd = localStorage.getItem('name');
+            const tokenName = localStorage.getItem('token');
+            if (tokenIdd != null && tokenName != null) {
+                navigate('/dashboard');
+            }
+        }, [navigate]);
+
+        return null;
+    };
 
     const Login = async () => {
         try {
@@ -41,10 +55,11 @@ export default function Signin() {
 
     return (
         <div>
+            <HomeRedirect />
             <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
             <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
             <button onClick={Login}>Login</button>
-            <p>{ message }</p>
+            <p>{message}</p>
         </div>
     );
 }

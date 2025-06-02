@@ -104,6 +104,9 @@ export default function Sidebar() {
           <a href="/rooms" className="nav-item nav-link">
             <i className="fa fa-th me-2"></i>Rooms
           </a>
+          <a href="/bookings" className="nav-item nav-link">
+            <i className="fa fa-th me-2"></i>Bookings
+          </a>
           <a href="/form" className="nav-item nav-link">
             <i className="fa fa-keyboard me-2"></i>Forms
           </a>

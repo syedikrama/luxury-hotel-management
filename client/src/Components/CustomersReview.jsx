@@ -2,9 +2,9 @@ import React from 'react';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
-import client1 from '../assets/images/2.jpg'; 
-import client2 from '../assets/images/3.jpg';
-import client3 from '../assets/images/4.jpg';
+import client1 from '../assets/images/Client-1.jpg'; 
+import client2 from '../assets/images/Client-2.jpg';
+import client3 from '../assets/images/Client-3.webp';
 
 export default function CustomersReview() {
   const testimonials = [

@@ -1,59 +1,95 @@
-.aboutus-wrapper {
-  padding: 60px 20px;
-  background: #fff;
-  font-family: 'Georgia', serif;
-}
-
-.aboutus-section {
+.about-container {
+  margin-top: 100px;
+  margin-bottom: 150px;
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: space-between;
-  max-width: 1400px; /* increased max width */
-  margin: 80px auto;
+  padding: 60px 40px;
+  background-color: white;
   flex-wrap: wrap;
+  gap: 40px;
 }
 
-.aboutus-section.reverse {
-  flex-direction: row-reverse;
-}
-
-.aboutus-image {
-  flex: 1.2; /* give image more space */
-  padding: 20px;
-  min-width: 350px;
-  text-align: center;
-}
-
-.aboutus-image img {
-  width: 100%;
-  max-width: 1000px; /* increased max-width */
-  height: auto;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-
-}
-
-.aboutus-text {
-  flex: 1; /* slightly smaller text column */
-  padding: 20px;
+.about-images {
+  position: relative;
+  flex: 1;
   min-width: 300px;
+  display: flex;
+  justify-content: center;
 }
 
-.aboutus-text h2 {
-  font-size: 30px;
-  margin-bottom: 20px;
-  letter-spacing: 1px;
-  color: #222;
+.img-main {
+  width: 500px;
+  height: 600px;
+  object-fit: cover;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  z-index: 1; /* lower z-index */
+  position: relative; /* add position */
 }
 
-.aboutus-text p {
-  font-size: 18px;
-  line-height: 1.7;
-  color: #444;
+.img-overlay2 {
+  width: 350px;
+  height: 400px;
+  top: 260px;
+  left: 390px;
+  z-index: 4; 
+  position: absolute;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
-.aboutus-description {
-  font-size: 1.1rem;
-  max-width: 800px;
-  margin: 0 auto 2rem auto;
-  text-align: center;
+
+
+.about-text {
+  flex: 1;
+  margin-top: 20px;
+  max-width: 600px;
+  text-align: start;
+}
+
+.section-title {
   color: #555;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.main-heading {
+  font-size: 38px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+.description {
+  color: #666;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+  color: #333;
+  font-size: 14px;
+}
+
+.features-list li {
+  margin-bottom: 8px;
+}
+
+.discover-btn {
+  background-color: #5B3F1D;
+  color: white;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.discover-btn:hover {
+  background-color: #3e2a14;
 }

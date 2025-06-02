@@ -17,7 +17,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function Map() {
   return (
-    <div style={{ height: '500px', width: '1200px', marginTop: '40px' , marginLeft :"160px" }}>
+    <div style={{ height: '500px', width: '1200px', marginTop: '40px' , marginLeft :"160px" , marginBottom :"100px" }}>
       <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'

@@ -23,7 +23,10 @@
 }
 
 .office p {
+    
+    margin-left: 233px;
     color: #555;
+    text-align: start;
     line-height: 1.6;
 }
 

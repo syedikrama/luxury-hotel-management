@@ -1,0 +1,13 @@
+.text-brown {
+  color: #8B4513;
+}
+
+.btn-brown {
+  background-color: #8B4513;
+  color: #fff;
+  border: none;
+}
+
+.btn-brown:hover {
+  background-color: #5c2e0d;
+}

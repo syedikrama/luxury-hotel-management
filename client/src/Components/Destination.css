@@ -2,18 +2,28 @@
   transition: transform 0.4s ease;
 }
 
-.destination-card.up {
+/* Default hover effect */
+.destination-card:hover {
   transform: translateY(-20px);
 }
 
+/* "Down" cards are translated down by default */
 .destination-card.down {
   transform: translateY(20px);
 }
 
+/* Hovering a "down" card should bring it back up */
+.destination-card.down:hover {
+  transform: translateY(0); /* or any value like 5px if you want it to slightly lift */
+}
 
+/* Disable movement on small screens */
 @media (max-width: 576px) {
+  .destination-card,
+  .destination-card:hover,
   .destination-card.up,
-  .destination-card.down {
+  .destination-card.down,
+  .destination-card.down:hover {
     transform: translateY(0);
   }
 }

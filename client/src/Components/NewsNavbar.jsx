@@ -38,7 +38,7 @@ export default function ServicesNavbar() {
 
             {/* Social Icons and Button */}
             <div className="d-flex align-items-center gap-2 ms-5">
-              <div className="social-icons d-flex gap-4"  style={{marginRight :"10px"}}>
+              <div className="social-icons-home d-flex gap-4"  style={{marginRight :"10px"}}>
                 <i className="fab fa-facebook-f text-white fs-5"></i>
                 <i className="fab fa-twitter text-white fs-5"></i>
                 <i className="fab fa-google-plus-g text-white fs-5"></i>

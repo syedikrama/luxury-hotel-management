@@ -1,12 +1,12 @@
-/* HERO SECTION */
+
 .hero-section {
   position: relative;
   height: 100vh;
-  background: url('https://cache.marriott.com/is/image/marriotts7prod/rz-rbarz-the-lobby-lounge--21710:Classic-Hor?wid=1300&fit=constrain') no-repeat center center/cover;
+  background: url('https://hoexr-next.vercel.app/images/banner/banner-1.jpg') no-repeat center center/cover;
 }
 
 .overlay {
-  background-color: rgba(0, 0, 0, 0.4);
+  /* background-color: rgba(0, 0, 0, 0.4); */
   height: 100%;
   width: 100%;
   color: white;
@@ -44,7 +44,7 @@
 /* NAVBAR STYLES */
 .navbar {
   position: relative;
-  z-index: 1000; /* Ensure it's above overlay */
+  z-index: 1000;
 }
 
 .navbar .nav-item {
@@ -58,7 +58,7 @@
   text-decoration: none;
 }
 
-/* HOVER & FOCUS EFFECT FOR NAV LINK */
+
 .navbar .nav-link:hover,
 .navbar .nav-link:focus {
   color: #9f8764 !important;
@@ -66,3 +66,6 @@
 
 
 
+.social-icons-home:hover {
+  color: red;
+}

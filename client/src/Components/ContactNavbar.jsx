@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function ContactNavbar() {
   return (
- <div className="hero-section" >
+ <div className="hero-section" style={{height :"500px"}} >
       <div className="overlay">
         <nav className="navbar navbar-expand-lg navbar-dark py-4">
           <div className="container-fluid d-flex align-items-center justify-content-between px-5">
@@ -26,7 +26,7 @@ export default function ContactNavbar() {
                 <Link className="nav-link text-white fs-5" to="/About">About</Link> 
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white fs-5" to="/News">News</Link> 
+                <Link className="nav-link text-white fs-5" to="/Facilities">Facilities</Link> 
               </li>
               <li className="nav-item">
                 <Link className="nav-link text-white fs-5" to="/Contact">Contact</Link> 
@@ -38,7 +38,7 @@ export default function ContactNavbar() {
 
             {/* Social Icons and Button */}
             <div className="d-flex align-items-center gap-2 ms-5">
-              <div className="social-icons d-flex gap-4"  style={{marginRight :"10px"}}>
+              <div className="social-icons-home d-flex gap-4"  style={{marginRight :"10px"}}>
                 <i className="fab fa-facebook-f text-white fs-5"></i>
                 <i className="fab fa-twitter text-white fs-5"></i>
                 <i className="fab fa-google-plus-g text-white fs-5"></i>
@@ -50,8 +50,10 @@ export default function ContactNavbar() {
 
         {/* Hero Content */}
         <div className="hero-content text-center" >
-          <h1 className="display-4" style={{ fontSize: "30px" }}>Live <em> Wonderful</em> life</h1>
+
           <p className="lead" style={{ fontSize: "80px" }}>CONTACT</p>
+          <h1 className="display-4" style={{ fontSize: "18px" }}>Home <em> \ </em> Contact</h1>
+
         </div>
       </div>
     </div>

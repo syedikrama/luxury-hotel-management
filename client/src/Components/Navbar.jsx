@@ -26,7 +26,7 @@ export default function Navbar() {
                 <Link className="nav-link text-white fs-5" to="/About">About</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link text-white fs-5" to="/News">News</Link>
+                <Link className="nav-link text-white fs-5" to="/Facilities">Facilities</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link text-white fs-5" to="/Contact">Contact</Link>
@@ -39,7 +39,7 @@ export default function Navbar() {
 
             {/* Social Icons and Button */}
             <div className="d-flex align-items-center gap-2 ms-5"  >
-              <div className="social-icons d-flex gap-4" style={{marginRight :"10px"}}>
+              <div className="social-icons-home d-flex gap-4" style={{marginRight :"10px"}}>
                 <i className="fab fa-facebook-f text-white fs-5 ms=5"></i>
                 <i className="fab fa-twitter text-white fs-5"></i>
                 <i className="fab fa-google-plus-g text-white fs-5"></i>
@@ -54,7 +54,7 @@ export default function Navbar() {
 
         {/* Hero Content */}
         <div className="hero-content text-center">
-          <h1 className="display-4" style={{ fontSize: "30px" }}>Welcome to Hideaway Resort</h1>
+          <h1 className="display-4" style={{ fontSize: "30px" }}>Unique Place & Luxury Hotel</h1>
           <p className="lead" style={{ fontSize: "80px" }}>Live <em>Wonderful</em> life</p>
         </div>
       </div>

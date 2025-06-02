@@ -1,0 +1,76 @@
+.facilities__grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
+  gap: 30px;
+}
+
+.facility-card {
+  background-color: #ffffff;
+
+  padding: 40px;
+  flex: 1 1 calc(25% - 30px); 
+  max-width: calc(25% - 30px);
+  text-align: center;
+  transition: transform 0.3s ease;
+  box-sizing: border-box;
+  margin-bottom: 100px;
+}
+
+
+.facilities__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.facilities__subtitle {
+  color: #b89974;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.facilities__title {
+  font-size: 60px;
+  color: #1a1a1a;
+  margin-bottom: 60px;
+}
+
+.facilities__grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.facility-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px;
+  width: 290px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.facility-card:hover {
+  transform: translateY(-5px);
+}
+
+.facility-card__icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.facility-card__title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #1a1a1a;
+}
+
+.facility-card__desc {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+}

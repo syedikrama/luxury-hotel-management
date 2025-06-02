@@ -1,5 +1,6 @@
 import React from 'react';
 import './AllRooms.css';
+import { Link } from 'react-router-dom';
 
 
 const rooms = [
@@ -91,14 +92,14 @@ export default function AllRooms() {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center', padding: '40px 20px' }}>
-        <div className="gallery-text-section">
+        {/* <div className="gallery-text-section">
           <h2 style={{ marginTop: "10px" }}>
             Our <em>Rooms</em> & Comfort
           </h2>
           <p style={{ marginTop: "10px" }}>
             Discover our luxurious rooms designed for every type of traveler. Whether you're seeking a cozy Double Room or a spacious Family Suite, each room offers modern amenities, elegant interiors, and ultimate comfort. Enjoy features like king-size beds, free Wi-Fi, and scenic views — all crafted to make your stay unforgettable.
           </p>
-        </div>
+        </div> */}
       </div>
 
       <div className="rooms-wrapper" >
@@ -113,7 +114,8 @@ export default function AllRooms() {
                 <li><strong>Capacity:</strong> {room.capacity}</li>
                 <li><strong>Bed:</strong> {room.bed}</li>
                 <li><strong>Services:</strong> {room.services}</li>
-                <button className='book-Now'>Book Now</button>
+
+                <Link to="/Details" style={{color :"black" , fontSize :"16px", marginTop :"10px"}}>Read More</Link>
                 {/* <p className='fw-bold' style={{marginTop :"30px" , fontSize :"20px" , textDecoration : "underline"}}>MORE DETAILS</p> */}
               </ul>
             </div>

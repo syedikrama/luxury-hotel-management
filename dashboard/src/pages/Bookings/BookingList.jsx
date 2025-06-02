@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function BookingList() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-  fetch('http://localhost:3001/hms/bookings')
-    .then(res => {
-      if (!res.ok) throw new Error('Network error');
-      return res.json();
-    })
-    .then(data => {
-      console.log("Backend response:", data);
-      if (data.bookings && Array.isArray(data.bookings)) {
-        setBookings(data.bookings);
-      } else if (Array.isArray(data)) {
-        setBookings(data);
-      } else {
-        setBookings([]);
-      }
-      setLoading(false);
-    })
-    .catch(err => {
-      setError(err.message);
-      setLoading(false);
-    });
-}, []);
+    fetch('http://localhost:3001/hms/bookings')
+      .then(res => {
+        if (!res.ok) throw new Error('Network error');
+        return res.json();
+      })
+      .then(data => {
+        if (data.bookings && Array.isArray(data.bookings)) {
+          setBookings(data.bookings);
+        } else if (Array.isArray(data)) {
+          setBookings(data);
+        } else {
+          setBookings([]);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
 
   const handleEdit = (id) => {
-    alert(`Edit booking with id: ${id}`);
+    navigate(`/bookings/edit/${id}`);
   };
 
   const handleDelete = async (id) => {
@@ -42,7 +43,6 @@ export default function BookingList() {
 
       if (!res.ok) throw new Error('Failed to delete booking');
 
-      // Delete ho jaane ke baad UI update karen
       setBookings(bookings.filter(booking => booking._id !== id));
     } catch (err) {
       alert('Error deleting booking: ' + err.message);
@@ -53,68 +53,100 @@ export default function BookingList() {
   if (error) return <p style={{ textAlign: 'center', color: 'red' }}>Error: {error}</p>;
 
   return (
-    <div style={{ maxWidth: 900, margin: '40px auto', fontFamily: 'Arial, sans-serif' }}>
+    <div style={{ maxWidth: 1200, margin: '40px auto', fontFamily: 'Arial, sans-serif' }}>
       <h2 style={{ textAlign: 'center', marginBottom: 20 }}>Booking List</h2>
+      <Link to="/dashboard" className="btn btn-warning mb-3 mx-3">Go to Dashboard</Link>
+      <Link to="/bookings/add" className="btn btn-success mb-3">Add New Booking</Link>
+
       {bookings.length === 0 ? (
         <p style={{ textAlign: 'center', fontStyle: 'italic', color: '#555' }}>No bookings available.</p>
       ) : (
-        <table style={{ width: '100%', borderCollapse: 'collapse', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-          <thead style={{ backgroundColor: '#2980b9', color: '#fff' }}>
-            <tr>
-              <th style={{ padding: '12px' }}>Guest Name</th>
-              <th style={{ padding: '12px' }}>Room</th>
-              <th style={{ padding: '12px' }}>Check-in</th>
-              <th style={{ padding: '12px' }}>Check-out</th>
-              <th style={{ padding: '12px' }}>Amount ($)</th>
-              <th style={{ padding: '12px' }}>Status</th>
-              <th style={{ padding: '12px' }}>Payment</th>
-              <th style={{ padding: '12px' }}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookings.map(({ _id, guest, room, checkInDate, checkOutDate, totalAmount, status, paymentStatus }) => (
-              <tr key={_id} style={{ borderBottom: '1px solid #ddd', textAlign: 'center' }}>
-                <td style={{ padding: '10px' }}>{guest?.name || 'N/A'}</td>
-                <td style={{ padding: '10px' }}>{room?.roomNumber || 'N/A'}</td>
-                <td style={{ padding: '10px' }}>{new Date(checkInDate).toLocaleDateString()}</td>
-                <td style={{ padding: '10px' }}>{new Date(checkOutDate).toLocaleDateString()}</td>
-                <td style={{ padding: '10px' }}>{totalAmount}</td>
-                <td style={{ padding: '10px', textTransform: 'capitalize' }}>{status}</td>
-                <td style={{ padding: '10px', textTransform: 'capitalize' }}>{paymentStatus}</td>
-                <td style={{ padding: '10px' }}>
-                  <button
-                    onClick={() => handleEdit(_id)}
-                    style={{
-                      marginRight: 8,
-                      backgroundColor: '#27ae60',
-                      color: '#fff',
-                      border: 'none',
-                      padding: '6px 12px',
-                      borderRadius: 4,
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(_id)}
-                    style={{
-                      backgroundColor: '#e74c3c',
-                      color: '#fff',
-                      border: 'none',
-                      padding: '6px 12px',
-                      borderRadius: 4,
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+            <thead style={{ backgroundColor: '#2980b9', color: '#fff' }}>
+              <tr>
+                <th style={thStyle}>Guest Name</th>
+                <th style={thStyle}>Room</th>
+                <th style={thStyle}>Check-in</th>
+                <th style={thStyle}>Check-out</th>
+                <th style={thStyle}>Amount ($)</th>
+                <th style={thStyle}>Status</th>
+                <th style={thStyle}>Payment</th>
+                <th style={thStyle}>Services</th>
+                <th style={thStyle}>Invoice</th>
+                <th style={thStyle}>Created By</th>
+                <th style={thStyle}>Created At</th>
+                <th style={thStyle}>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {bookings.map(booking => (
+                <tr key={booking._id} style={{ borderBottom: '1px solid #ddd', textAlign: 'center' }}>
+                  <td style={tdStyle}>{booking.guest?.email || 'N/A'}</td>
+                  <td style={tdStyle}>{booking.room?.roomNumber || 'N/A'}</td>
+                  <td style={tdStyle}>{new Date(booking.checkInDate).toLocaleDateString()}</td>
+                  <td style={tdStyle}>{new Date(booking.checkOutDate).toLocaleDateString()}</td>
+                  <td style={tdStyle}>{booking.totalAmount}</td>
+                  <td style={tdStyle}>{booking.status}</td>
+                  <td style={tdStyle}>{booking.paymentStatus}</td>
+                  <td style={tdStyle}>
+                    {(booking.additionalServices || []).length > 0
+                      ? booking.additionalServices.map(s => `${s.serviceName} ($${s.price})`).join(', ')
+                      : 'None'}
+                  </td>
+                  <td style={tdStyle}>{booking.invoiceGenerated ? 'Yes' : 'No'}</td>
+                  <td style={tdStyle}>{booking.createdBy?.name || booking.createdBy?._id || 'N/A'}</td>
+                  <td style={tdStyle}>{new Date(booking.createdAt).toLocaleDateString()}</td>
+                  <td style={tdStyle}>
+                    <button
+                      onClick={() => handleEdit(booking._id)}
+                      style={editBtnStyle}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(booking._id)}
+                      style={deleteBtnStyle}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
 }
+
+const thStyle = {
+  padding: '12px',
+  whiteSpace: 'nowrap'
+};
+
+const tdStyle = {
+  padding: '10px',
+  textTransform: 'capitalize',
+  whiteSpace: 'nowrap'
+};
+
+const editBtnStyle = {
+  marginRight: 8,
+  backgroundColor: '#27ae60',
+  color: '#fff',
+  border: 'none',
+  padding: '6px 12px',
+  borderRadius: 4,
+  cursor: 'pointer',
+};
+
+const deleteBtnStyle = {
+  backgroundColor: '#e74c3c',
+  color: '#fff',
+  border: 'none',
+  padding: '6px 12px',
+  borderRadius: 4,
+  cursor: 'pointer',
+};

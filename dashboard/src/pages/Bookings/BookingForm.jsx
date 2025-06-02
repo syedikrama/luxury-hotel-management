@@ -1,204 +1,144 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function BookingForm({ onSubmit, initialData = {} }) {
-  const [formData, setFormData] = useState({
-    guest: initialData.guest || "",
-    room: initialData.room || "",
-    checkInDate: initialData.checkInDate
-      ? new Date(initialData.checkInDate).toISOString().slice(0, 10)
-      : "",
-    checkOutDate: initialData.checkOutDate
-      ? new Date(initialData.checkOutDate).toISOString().slice(0, 10)
-      : "",
-    totalAmount: initialData.totalAmount || "",
-    paymentStatus: initialData.paymentStatus || "pending",
-    status: initialData.status || "reserved",
-    additionalServices: initialData.additionalServices || [],
+export default function BookingForm() {
+  let navigate = useNavigate();
+
+  let [formData, setFormData] = useState({
+    guest: '',
+    room: '',
+    checkInDate: '',
+    checkOutDate: '',
+    totalAmount: '',
+    status: 'reserved',
+    paymentStatus: 'pending',
+    additionalServices: [],
   });
 
-  const [newService, setNewService] = useState({ serviceName: "", price: "" });
-  const [errors, setErrors] = useState({});
+  let [serviceInput, setServiceInput] = useState({ serviceName: '', price: '' });
+  let [error, setError] = useState('');
+  let [success, setSuccess] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  let handleChange = (e) => {
+    let { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleServiceChange = (e) => {
-    const { name, value } = e.target;
-    setNewService((prev) => ({ ...prev, [name]: value }));
+  let handleServiceChange = (e) => {
+    let { name, value } = e.target;
+    setServiceInput((prev) => ({ ...prev, [name]: value }));
   };
 
-  const addService = () => {
-    if (!newService.serviceName.trim()) {
-      alert("Service name cannot be empty");
-      return;
-    }
-    if (isNaN(newService.price) || newService.price === "") {
-      alert("Please enter valid price");
-      return;
-    }
+  let addService = () => {
+    if (!serviceInput.serviceName || !serviceInput.price) return;
+
     setFormData((prev) => ({
       ...prev,
-      additionalServices: [...prev.additionalServices, newService],
+      additionalServices: [...prev.additionalServices, serviceInput],
     }));
-    setNewService({ serviceName: "", price: "" });
+    setServiceInput({ serviceName: '', price: '' });
   };
 
-  const removeService = (index) => {
-    setFormData((prev) => ({
-      ...prev,
-      additionalServices: prev.additionalServices.filter((_, i) => i !== index),
-    }));
-  };
-
-  const validate = () => {
-    const errs = {};
-    if (!formData.guest) errs.guest = "Guest is required";
-    if (!formData.room) errs.room = "Room is required";
-    if (!formData.checkInDate) errs.checkInDate = "Check-in date is required";
-    if (!formData.checkOutDate) errs.checkOutDate = "Check-out date is required";
-    if (new Date(formData.checkOutDate) < new Date(formData.checkInDate))
-      errs.checkOutDate = "Check-out cannot be before check-in";
-    if (!formData.totalAmount || isNaN(formData.totalAmount))
-      errs.totalAmount = "Valid total amount is required";
-    return errs;
-  };
-
-  const handleSubmit = (e) => {
+  let handleSubmit = async (e) => {
     e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
-      return;
-    }
-    setErrors({});
-    if (onSubmit) {
-      onSubmit(formData);
-    } else {
-      alert("Form submitted! Implement onSubmit prop to handle.");
+
+    try {
+      let res = await fetch('http://localhost:3001/hms/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error('Failed to create booking');
+
+      setSuccess('Booking created successfully!');
+      setError('');
+      setTimeout(() => navigate('/bookings'), 1500);
+    } catch (err) {
+      setError(err.message);
+      setSuccess('');
     }
   };
-
-  // Simple reusable input wrapper for label + input + error
-  const InputField = ({
-    label,
-    type = "text",
-    name,
-    value,
-    onChange,
-    placeholder,
-    min,
-  }) => (
-    <div style={{ marginBottom: 15 }}>
-      <label
-        htmlFor={name}
-        style={{ display: "block", marginBottom: 5, fontWeight: "600" }}
-      >
-        {label}
-      </label>
-      <input
-        style={{
-          width: "100%",
-          padding: "8px 12px",
-          borderRadius: 5,
-          border: errors[name] ? "1.5px solid #e74c3c" : "1.5px solid #ccc",
-          fontSize: 16,
-        }}
-        type={type}
-        id={name}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        min={min}
-      />
-      {errors[name] && (
-        <small style={{ color: "#e74c3c", marginTop: 3, display: "block" }}>
-          {errors[name]}
-        </small>
-      )}
-    </div>
-  );
 
   return (
-    <div
-      style={{
-        maxWidth: 600,
-        margin: "30px auto",
-        padding: 25,
-        border: "1px solid #ddd",
-        borderRadius: 10,
-        boxShadow: "0 3px 8px rgba(0,0,0,0.1)",
-        backgroundColor: "#fff",
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      }}
-    >
-      <h2 style={{ textAlign: "center", marginBottom: 25, color: "#2c3e50" }}>
-        {initialData._id ? "Edit Booking" : "Create Booking"}
-      </h2>
+    <div className="container mt-5" style={{ maxWidth: 600 }}>
+      <h2 className="mb-4">Add New Booking</h2>
+      <Link to="/dashboard" className="btn btn-warning mb-3 mx-3">Go to Dashboard</Link>
+    
+
+      {error && <div className="alert alert-danger">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>}
+
       <form onSubmit={handleSubmit}>
-        <InputField
-          label="Guest ID"
-          name="guest"
-          value={formData.guest}
-          onChange={handleChange}
-          placeholder="Enter Guest ObjectId"
-        />
+        <div className="mb-3">
+          <label className="form-label">Guest ID</label>
+          <input
+            type="text"
+            name="guest"
+            className="form-control"
+            value={formData.guest}
+            onChange={handleChange}
+            required
+            placeholder="Enter guest ObjectId"
+          />
+        </div>
 
-        <InputField
-          label="Room ID"
-          name="room"
-          value={formData.room}
-          onChange={handleChange}
-          placeholder="Enter Room ObjectId"
-        />
+        <div className="mb-3">
+          <label className="form-label">Room ID</label>
+          <input
+            type="text"
+            name="room"
+            className="form-control"
+            value={formData.room}
+            onChange={handleChange}
+            required
+            placeholder="Enter room ObjectId"
+          />
+        </div>
 
-        <InputField
-          label="Check-in Date"
-          type="date"
-          name="checkInDate"
-          value={formData.checkInDate}
-          onChange={handleChange}
-        />
+        <div className="mb-3">
+          <label className="form-label">Check-In Date</label>
+          <input
+            type="date"
+            name="checkInDate"
+            className="form-control"
+            value={formData.checkInDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <InputField
-          label="Check-out Date"
-          type="date"
-          name="checkOutDate"
-          value={formData.checkOutDate}
-          onChange={handleChange}
-        />
+        <div className="mb-3">
+          <label className="form-label">Check-Out Date</label>
+          <input
+            type="date"
+            name="checkOutDate"
+            className="form-control"
+            value={formData.checkOutDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <InputField
-          label="Total Amount"
-          type="number"
-          name="totalAmount"
-          value={formData.totalAmount}
-          onChange={handleChange}
-          min="0"
-          placeholder="Enter total amount"
-        />
+        <div className="mb-3">
+          <label className="form-label">Total Amount</label>
+          <input
+            type="number"
+            name="totalAmount"
+            className="form-control"
+            value={formData.totalAmount}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <div style={{ marginBottom: 15 }}>
-          <label
-            htmlFor="status"
-            style={{ display: "block", marginBottom: 5, fontWeight: "600" }}
-          >
-            Booking Status
-          </label>
+        <div className="mb-3">
+          <label className="form-label">Status</label>
           <select
-            id="status"
             name="status"
+            className="form-select"
             value={formData.status}
             onChange={handleChange}
-            style={{
-              width: "100%",
-              padding: "8px 12px",
-              borderRadius: 5,
-              border: "1.5px solid #ccc",
-              fontSize: 16,
-            }}
           >
             <option value="reserved">Reserved</option>
             <option value="checked-in">Checked-in</option>
@@ -207,25 +147,13 @@ export default function BookingForm({ onSubmit, initialData = {} }) {
           </select>
         </div>
 
-        <div style={{ marginBottom: 15 }}>
-          <label
-            htmlFor="paymentStatus"
-            style={{ display: "block", marginBottom: 5, fontWeight: "600" }}
-          >
-            Payment Status
-          </label>
+        <div className="mb-3">
+          <label className="form-label">Payment Status</label>
           <select
-            id="paymentStatus"
             name="paymentStatus"
+            className="form-select"
             value={formData.paymentStatus}
             onChange={handleChange}
-            style={{
-              width: "100%",
-              padding: "8px 12px",
-              borderRadius: 5,
-              border: "1.5px solid #ccc",
-              fontSize: 16,
-            }}
           >
             <option value="pending">Pending</option>
             <option value="paid">Paid</option>
@@ -233,120 +161,40 @@ export default function BookingForm({ onSubmit, initialData = {} }) {
           </select>
         </div>
 
-        <div style={{ marginBottom: 15 }}>
-          <label style={{ fontWeight: "600" }}>Additional Services</label>
-          {formData.additionalServices.length === 0 && (
-            <p style={{ fontStyle: "italic", color: "#7f8c8d" }}>
-              No additional services added.
-            </p>
-          )}
-          <ul style={{ paddingLeft: 20 }}>
-            {formData.additionalServices.map((service, index) => (
-              <li
-                key={index}
-                style={{
-                  marginBottom: 8,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  borderBottom: "1px solid #ddd",
-                  paddingBottom: 4,
-                }}
-              >
-                <span>
-                  {service.serviceName} - ${service.price}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => removeService(index)}
-                  style={{
-                    backgroundColor: "#e74c3c",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: 3,
-                    cursor: "pointer",
-                    padding: "3px 8px",
-                    fontSize: 14,
-                  }}
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div
-            style={{
-              marginTop: 10,
-              display: "flex",
-              gap: 10,
-              alignItems: "center",
-            }}
-          >
+        <div className="mb-3">
+          <label className="form-label">Add Services</label>
+          <div className="d-flex gap-2">
             <input
               type="text"
               name="serviceName"
               placeholder="Service Name"
-              value={newService.serviceName}
+              className="form-control"
+              value={serviceInput.serviceName}
               onChange={handleServiceChange}
-              style={{
-                flex: 2,
-                padding: "8px 12px",
-                borderRadius: 5,
-                border: "1.5px solid #ccc",
-                fontSize: 16,
-              }}
             />
             <input
               type="number"
               name="price"
               placeholder="Price"
-              value={newService.price}
+              className="form-control"
+              value={serviceInput.price}
               onChange={handleServiceChange}
-              min="0"
-              style={{
-                flex: 1,
-                padding: "8px 12px",
-                borderRadius: 5,
-                border: "1.5px solid #ccc",
-                fontSize: 16,
-              }}
             />
-            <button
-              type="button"
-              onClick={addService}
-              style={{
-                flex: "none",
-                backgroundColor: "#27ae60",
-                color: "#fff",
-                border: "none",
-                borderRadius: 5,
-                cursor: "pointer",
-                padding: "8px 15px",
-                fontWeight: "600",
-                fontSize: 16,
-              }}
-            >
+            <button type="button" className="btn btn-success" onClick={addService}>
               Add
             </button>
           </div>
+          <ul className="mt-2">
+            {formData.additionalServices.map((s, i) => (
+              <li key={i}>
+                {s.serviceName} - ${s.price}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: "12px 0",
-            backgroundColor: "#2980b9",
-            color: "#fff",
-            border: "none",
-            borderRadius: 6,
-            fontSize: 18,
-            cursor: "pointer",
-            fontWeight: "700",
-            marginTop: 15,
-          }}
-        >
-          {initialData._id ? "Update Booking" : "Create Booking"}
+        <button type="submit" className="btn btn-primary">
+          Save Booking
         </button>
       </form>
     </div>

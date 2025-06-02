@@ -8,6 +8,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { left } from '@popperjs/core';
 
 export default function Dashboard() {
   const [date, setDate] = useState(new Date());
@@ -33,7 +34,7 @@ export default function Dashboard() {
   const maintenance = rooms.filter(r => r.status === 'maintenance').length;
 
   return (
-    <div className="container-xxl d-flex min-vh-100 p-2" style={{ overflowX: 'hidden' }}>
+    <div className="container d-flex min-vh-100 p-2" style={{ overflowX: 'hidden',marginLeft: "200px" }}>
       <Sidebar />
 
       <div className="d-flex flex-column flex-grow-1 mx-5">

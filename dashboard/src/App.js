@@ -13,7 +13,7 @@ import AddRooms from './pages/rooms/AddRooms';
 import EditRoom from './pages/rooms/EditRoom';
 import BookingForm from './pages/Bookings/BookingForm';
 import BookingList from './pages/Bookings/BookingList';
-import BookingDetails from './pages/Bookings/BookingDetails';
+import EditBooking from './pages/Bookings/EditBooking';
 
 function App() {
   let HomeRedirect = () => {
@@ -52,7 +52,8 @@ function App() {
             <Route path="/rooms/edit/:id" element={<EditRoom />} />
             <Route path="/bookings/add" element={<BookingForm />} />
             <Route path="/bookings" element={<BookingList />} />
-            <Route path="/bookings/details" element={<BookingDetails />} />
+            <Route path="/bookings/edit/:id" element={<EditBooking />} />
+
 
 
 
